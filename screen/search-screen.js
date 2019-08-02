@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import MapView from "react-native-maps";
 import {SearchBar} from "react-native-elements";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import {connect} from "react-redux";
 
 const DEFAULT_COORD = {
     lat: 48.859268,
@@ -22,6 +23,9 @@ class SearchScreen extends Component {
     }
 
     render() {
+
+        console.log(this.props.currentWeather)
+
         return (
             <View style={{flex: 1}}>
                 <MapView
@@ -53,5 +57,11 @@ class SearchScreen extends Component {
     }
 }
 
-export default SearchScreen;
+const mapStateToProps = (store) => {
+    return {
+        currentWeather: store.weather.data
+    }
+}
+
+export default connect(mapStateToProps, undefined)(SearchScreen)
 
