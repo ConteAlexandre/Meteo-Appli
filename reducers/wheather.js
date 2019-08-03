@@ -1,9 +1,12 @@
 import {SET_CURRENT_WEATHER} from "../actions/actionstypes";
 
-export function WeatherReducer(state, action) {
+const initialState = {
+    CurrentWeather: undefined
+}
+export function WeatherReducer(state = initialState, action) {
     if (action.type === SET_CURRENT_WEATHER) {
         return {
-            data: action.payload
+            CurrentWeather: action.payload
         }
     }
 
