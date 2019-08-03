@@ -5,6 +5,7 @@ import {SearchBar} from "react-native-elements";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import {connect} from "react-redux";
 import {getCurrentWeatherByCity} from "../actions";
+import WeatherCard from "../components/WeatherCard";
 
 const DEFAULT_COORD = {
     lat: 48.859268,
@@ -31,7 +32,7 @@ class SearchScreen extends Component {
         return (
             <View style={{flex: 1}}>
                 <MapView
-                    style={{flex: 1, zIndex: 0, alignItems: "center"}}
+                    style={{flex: 1 }}
                     region={{
                         latitude: DEFAULT_COORD.lat,
                         longitude: DEFAULT_COORD.lng,
@@ -41,7 +42,8 @@ class SearchScreen extends Component {
                     scrollEnabled={false}
                     liteMode={true}
                 />
-                    <SearchBar
+                <WeatherCard/>
+                <SearchBar
                         lightTheme
                         onChangeText={this.updateSearch}
                         value={this.state.search}
