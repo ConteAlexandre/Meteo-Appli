@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import { Animated, View, Text, PanResponder } from "react-native";
+import { Animated, View, Text, PanResponder, Image } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import {kelvinToCelcius} from "../services/temperature";
 
 const CARD_INITIAL_POSITION_Y = hp("80%");
 const CARD_INITIAL_POSITION_X = wp("5%");
 const TRESHOLD_TO_TOP = hp("75%");
 const TRESHOLD_TO_BOTTOM = hp("70%");
-const CARD_OPEN_POSITION = hp("45%")
-const DRAG_ZONE_WHEN_OPEN = hp("65%")
+const CARD_OPEN_POSITION = hp("45%");
+const DRAG_ZONE_WHEN_OPEN = hp("65%");
+const ICON_URL = "http://openweathermap.org/img/w/";
 
 class WeatherCard extends Component {
 
@@ -21,7 +23,7 @@ class WeatherCard extends Component {
     componentDidMount() {
         this.position = new Animated.ValueXY()
         this.position.setValue({x: CARD_INITIAL_POSITION_X, y: CARD_INITIAL_POSITION_Y})
-        panResponder = PanResponder.create({
+        const panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
             onPanResponderMove: (e, gesture) => {
                 if (!(this.state.isOpen && gesture.y0 > DRAG_ZONE_WHEN_OPEN))
@@ -64,6 +66,25 @@ class WeatherCard extends Component {
         }).start(() => done && done())
     }
 
+    renderHandler() {
+        return (
+            <View
+                style={{justifyContent: "center", alignItems: "center"}}
+            >
+                <Text style={{ fontSize: 30, marginTop: hp("1%")}}>
+                    {this.props.currentWeather.name}
+                </Text>
+                <View style={{flexDirection: "row"}}>
+                    <Text style={{ marginTop: hp("1%"), fontSize: 35}}>
+                        {kelvinToCelcius(this.props.currentWeather.main.temp) + "°C" }
+                    </Text>
+                    <Image style={{ height: 60, width: 60}} source={{uri: `${ICON_URL}${this.props.currentWeather.weather[0].icon}.png`}}/>
+                </View>
+
+            </View>
+        )
+    }
+
     render() {
         return (
             this.state.panResponder ?
@@ -81,7 +102,9 @@ class WeatherCard extends Component {
                     padding: hp("2%"),
                     ...this.position.getLayout()
                 }}
-                />
+                >
+                    {this.renderHandler()}
+                </Animated.View>
                 : <View/>);
     }
 }
