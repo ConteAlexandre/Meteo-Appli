@@ -4,13 +4,16 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 
 const CARD_INITIAL_POSITION_Y = hp("80%");
 const CARD_INITIAL_POSITION_X = wp("5%");
+const TRESHOLD_TO_TOP = hp("75%");
+const TRESHOLD_TO_BOTTOM = hp("70%");
+const CARD_OPEN_POSITION = hp("45%")
 
 class WeatherCard extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = { panResponder: undefined };
+        this.state = { panResponder: undefined, isOpen: false };
 
     }
 
@@ -24,10 +27,31 @@ class WeatherCard extends Component {
                     x: CARD_INITIAL_POSITION_X,
                     y: gesture.moveY
                 })
+            },
+            onPanResponderRelease: (e, gesture) => {
+                if (!this.state.isOpen) {
+                    if (gesture.moveY <= TRESHOLD_TO_TOP) {
+                        this.setOpenPosition(() => this.setState({ isOpen: true}))
+                    }else {
+                        this.setResetPosition()
+                    }
+                }
             }
         })
         this.setState({ panResponder })
 
+    }
+
+    setOpenPosition = (done) => {
+        Animated.spring(this.position, {
+            toValue: { x: CARD_INITIAL_POSITION_X, y: CARD_OPEN_POSITION}
+        }).start( () => done && done())
+    }
+
+    setResetPosition = () => {
+        Animated.spring(this.position, {
+            toValue: { x: CARD_INITIAL_POSITION_X, y: CARD_INITIAL_POSITION_Y}
+        }).start()
     }
 
     render() {
