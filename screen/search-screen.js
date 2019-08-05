@@ -34,8 +34,8 @@ class SearchScreen extends Component {
                 <MapView
                     style={{flex: 1 }}
                     region={{
-                        latitude: DEFAULT_COORD.lat,
-                        longitude: DEFAULT_COORD.lng,
+                        latitude: this.props.currentWeather ? this.props.currentWeather.coord.lat : DEFAULT_COORD.lat,
+                        longitude: this.props.currentWeather ? this.props.currentWeather.coord.lon : DEFAULT_COORD.lng,
                         latitudeDelta: 0.2000,
                         longitudeDelta: 0.1000,
                     }}
@@ -63,7 +63,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        currentWeather: store.weather.data
+        currentWeather: store.weather.CurrentWeather
     }
 }
 
