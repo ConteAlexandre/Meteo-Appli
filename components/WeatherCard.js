@@ -99,7 +99,7 @@ class WeatherCard extends Component {
                 <Button
                     containerStyle={{marginTop: hp("3%"), width: wp("80%")}}
                     onPress={() => console.log("todo")}
-                    title={"See 5 days forecast"}
+                    title={"Voir les 5 jours suivants"}
                 />
             </View>
         )
