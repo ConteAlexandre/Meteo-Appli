@@ -5,11 +5,11 @@ import {kelvinToCelcius} from "../services/temperature";
 import {Button} from "react-native-elements";
 import { withNavigation } from "react-navigation";
 
-const CARD_INITIAL_POSITION_Y = hp("80%");
+const CARD_INITIAL_POSITION_Y = hp("85%");
 const CARD_INITIAL_POSITION_X = wp("5%");
 const TRESHOLD_TO_TOP = hp("75%");
 const TRESHOLD_TO_BOTTOM = hp("70%");
-const CARD_OPEN_POSITION = hp("45%");
+const CARD_OPEN_POSITION = hp("65%");
 const DRAG_ZONE_WHEN_OPEN = hp("65%");
 const ICON_URL = "http://openweathermap.org/img/w/";
 
