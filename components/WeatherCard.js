@@ -3,6 +3,7 @@ import { Animated, View, Text, PanResponder, Image } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import {kelvinToCelcius} from "../services/temperature";
 import {Button} from "react-native-elements";
+import { withNavigation } from "react-navigation";
 
 const CARD_INITIAL_POSITION_Y = hp("80%");
 const CARD_INITIAL_POSITION_X = wp("5%");
@@ -86,6 +87,10 @@ class WeatherCard extends Component {
         )
     }
 
+    gotoDetails = () => {
+        this.props.navigation.push("Detail")
+    }
+
     renderMoreDetail() {
         return (
             <View>
@@ -98,7 +103,7 @@ class WeatherCard extends Component {
                 </View>
                 <Button
                     containerStyle={{marginTop: hp("3%"), width: wp("80%")}}
-                    onPress={() => console.log("todo")}
+                    onPress={this.gotoDetails}
                     title={"Voir les 5 jours suivants"}
                 />
             </View>
@@ -129,4 +134,4 @@ class WeatherCard extends Component {
     }
 }
 
-export default WeatherCard;
+export default withNavigation(WeatherCard);
