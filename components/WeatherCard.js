@@ -23,6 +23,12 @@ class WeatherCard extends Component {
     }
 
     componentDidMount() {
+        this.onFocusListener = this.props.navigation.addListener(
+            "willFocus",
+            payload => {
+                this.setResetPosition(() => this.setState({isOpen: false}))
+            }
+        )
         this.position = new Animated.ValueXY()
         this.position.setValue({x: CARD_INITIAL_POSITION_X, y: CARD_INITIAL_POSITION_Y})
         const panResponder = PanResponder.create({
