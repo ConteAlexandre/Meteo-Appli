@@ -6,6 +6,7 @@ import { getForecastWeatherByCity } from "../actions";
 import { LineChart } from "react-native-chart-kit";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 import { kelvinToCelcius } from "../services/temperature";
+import {Button} from "react-native-elements";
 
 class AdvencedDetails extends Component {
 
@@ -31,6 +32,10 @@ class AdvencedDetails extends Component {
             let day = index / 8;
             return index === 0 ?  "t" : index % 8 === 0 ? "t+" + day + "j" : ""
         })
+    }
+
+    goBack = () => {
+        this.props.navigation.goBack();
     }
 
     renderChart(data){
@@ -77,6 +82,7 @@ class AdvencedDetails extends Component {
                     Graph Humidité
                 </Text>
                 {this.renderChart(this.getHumidity())}
+                <Button onPress={this.goBack} title={"Retour"} containerStyle={{marginTop: hp("1%"), width: wp("90%")}}/>
             </View>
         )
     }
