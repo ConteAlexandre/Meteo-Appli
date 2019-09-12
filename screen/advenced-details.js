@@ -22,7 +22,7 @@ class AdvencedDetails extends Component {
 
     getHumidity() {
         return this.props.forecastWeather.list.map( weather => {
-            return (kelvinToCelcius(weather.main.humidity))
+            return (weather.main.humidity)
         })
     }
 
@@ -63,10 +63,28 @@ class AdvencedDetails extends Component {
         )
     }
 
+    renderCharts() {
+        return (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 30, paddingTop: hp("1%")}}>
+                    {this.props.forecastWeather.city.name} sur 5 Jours
+                </Text>
+                <Text style={{ marginBottom: hp("2%"), marginTop: hp("2%"), fontSize: 20 }}>
+                    Graph Température en °C
+                </Text>
+                {this.renderChart(this.getTemperature())}
+                <Text style={{ marginBottom: hp("2%"), fontSize: 20 }}>
+                    Graph Humidité
+                </Text>
+                {this.renderChart(this.getHumidity())}
+            </View>
+        )
+    }
+
     render() {
         return (
             <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-                {this.props.forecastWeather ? this.renderChart(this.getTemperature()) : <Text>Loading...</Text>}
+                {this.props.forecastWeather ? this.renderCharts() : <Text>Loading...</Text>}
             </View>
         );
     }
