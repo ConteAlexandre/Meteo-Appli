@@ -5,6 +5,7 @@ import store from "./store";
 import {Provider} from "react-redux";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack"
+import IndexScreen from "./screen/index-screen";
 
 class App extends Component {
 
@@ -17,11 +18,12 @@ class App extends Component {
 
 const StackNavigator = createStackNavigator(
     {
+        Index : IndexScreen,
         Search : SearchScreen,
         Detail : AdvencedDetail
     },
     {
-        initialRouteName: "Search",
+        initialRouteName: "Index",
         headerMode: "none"
     }
 );
