@@ -5,6 +5,7 @@ import { withNavigation } from "react-navigation";
 import { getForecastWeatherByCity } from "../actions";
 import { LineChart } from "react-native-chart-kit";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
+import { kelvinToCelcius } from "../services/temperature";
 
 class AdvencedDetails extends Component {
 
@@ -13,25 +14,36 @@ class AdvencedDetails extends Component {
         this.props.getForecastWeatherByCity(city);
     }
 
+    getTemperature() {
+        return this.props.forecastWeather.list.map( weather => {
+            return (kelvinToCelcius(weather.main.temp))
+        })
+    }
+
+    getHumidity() {
+        return this.props.forecastWeather.list.map( weather => {
+            return (kelvinToCelcius(weather.main.humidity))
+        })
+    }
+
+    getLabels() {
+        return this.props.forecastWeather.list.map((_, index) => {
+            let day = index / 8;
+            return index === 0 ?  "t" : index % 8 === 0 ? "t+" + day + "j" : ""
+        })
+    }
+
     renderChart(data){
         return (
             <LineChart
                 data={{
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    labels: this.getLabels(),
                     datasets: [{
-                        data: [
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100
-                        ]
+                        data
                     }]
                 }}
                 width={wp("90%")} // from react-native
                 height={hp("30%")}
-                yAxisLabel={'$'}
                 chartConfig={{
                     backgroundColor: '#e26a00',
                     backgroundGradientFrom: '#fb8c00',
@@ -54,7 +66,7 @@ class AdvencedDetails extends Component {
     render() {
         return (
             <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-                {this.props.forecastWeather ? this.renderChart({}) : <Text>Loading...</Text>}
+                {this.props.forecastWeather ? this.renderChart(this.getTemperature()) : <Text>Loading...</Text>}
             </View>
         );
     }
