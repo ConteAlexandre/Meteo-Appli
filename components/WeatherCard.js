@@ -1,17 +1,48 @@
+//Voici le fichier qui définit notre carte où figure la température et autres informations sur la ville qui a été tapé
+
+//On importe React et Component pour nous permettre d'utiliser les différentes fonction de react native
 import React, {Component} from 'react';
+
+//Voici différents objets apparatenant au package react-native et qui vont être utile au fur et à mesure
 import { Animated, View, Text, PanResponder, Image } from "react-native";
+
+//Ceci sont des composants qui nous permettet de mettre des pourcentages pour la hauteur et largeur de composants ce
+//ce qui une responsivité plus pratique
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+//Ceci est une fonction importé d'un fichier local qui nous permet de faire la convertion des kelvin en celcius
 import {kelvinToCelcius} from "../services/temperature";
+
+//Importation d'un objet de react-native-element pour faire afficher un bouton
 import {Button} from "react-native-elements";
+
+//Cette fonction va nous permettre d'autoriser la navigation entre différents écrans ou interface via ce composant
 import { withNavigation } from "react-navigation";
 
+//Voici différentes constantes qui seront utilisées dans le composant et en faisant cela, on évite d'avoir des erreurs
+//et on peut ensuite réutiliser où l'on veut
+
+//Constante qui nous permet de déterminer la hauteur de la Weathercard une fois la recherche effectué
 const CARD_INITIAL_POSITION_Y = hp("80%");
+
+//Elle nous permet de définir la largeur de gauche que l'on enleve sur l'ecran pour la Weathercard de la ville
 const CARD_INITIAL_POSITION_X = wp("5%");
+
+//cette constante permet de savoir à partir de quelle hauteur on laisse la Weathercard ouverte completement
 const TRESHOLD_TO_TOP = hp("75%");
+
+//Celle ci nous permet de définir à partir de quelle hauteur la Weathercard revient à sa position initiale
 const TRESHOLD_TO_BOTTOM = hp("70%");
+
+//La constante nous permet de savoir la hauteur que prend la Weathercard lorsqu'elle est ouvrte complètement
 const CARD_OPEN_POSITION = hp("45%");
-const DRAG_ZONE_WHEN_OPEN = hp("65%");
+
+//Celle ci nous permet de définir la zone à cibler pour pouvoir faire redescendre la Weathercard ou juste la bouger
+const DRAG_ZONE_WHEN_OPEN = hp("50%");
+
+//Et enfin, cette constante nous permet de définir l'url qui nous donne l'icone du temps
 const ICON_URL = "http://openweathermap.org/img/w/";
+
 
 class WeatherCard extends Component {
 
