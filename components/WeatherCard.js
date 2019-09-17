@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 
 //Voici différents objets apparatenant au package react-native et qui vont être utile au fur et à mesure
-import { Animated, View, Text, PanResponder, Image } from "react-native";
+import { Animated, View, Text, PanResponder, Image, StyleSheet } from "react-native";
 
 //Ceci sont des composants qui nous permettet de mettre des pourcentages pour la hauteur et largeur de composants ce
 //ce qui une responsivité plus pratique
@@ -227,7 +227,7 @@ class WeatherCard extends Component {
     renderMoreDetail() {
         return (
             <View>
-                <View style={{ alignItems: "center"}}>
+                <View style={ styles.alignitem }>
                     <Text>Humidity: {this.props.currentWeather.main.humidity} %</Text>
                     <Text>Pressure: {this.props.currentWeather.main.pressure} hpa</Text>
                     <Text>Max Température: {kelvinToCelcius(this.props.currentWeather.main.temp_max)}°C</Text>
@@ -250,26 +250,38 @@ class WeatherCard extends Component {
     render() {
         return (
             this.state.panResponder ?
-                <Animated.View {...this.state.panResponder.panHandlers} style={{width: wp("90%"),
-                    height: hp("110%"),
-                    borderRadius: 10,
-                    zIndex: 2,
-                    backgroundColor: "white",
-                    elevation: 1,
-                    shadowColor: "black",
-                    shadowOpacity: 0.2,
-                    shadowOffset: { height: 2, width: 2},
-                    position: "absolute",
-                    left: CARD_INITIAL_POSITION_X,
-                    padding: hp("2%"),
-                    ...this.position.getLayout()
-                }}
+                <Animated.View
+                    {...this.state.panResponder.panHandlers}
+                    style={styles.renduglobal}
+                    {...this.position.getLayout()}
                 >
                     {this.renderHandler()}
                 </Animated.View>
                 : <View/>);
     }
 }
+
+//On créer une constante styles pour éviter de se retrouver avec des lignes de styles qui peuvent se répéter
+// pour plusieurs composants
+const styles = StyleSheet.create({
+    alignitem: {
+        alignItems: "center"
+    },
+    renduglobal: {
+        width: wp("90%"),
+        height: hp("110%"),
+        borderRadius: 10,
+        zIndex: 2,
+        backgroundColor: "white",
+        elevation: 1,
+        shadowColor: "black",
+        shadowOpacity: 0.2,
+        shadowOffset: { height: 2, width: 2},
+        position: "absolute",
+        left: CARD_INITIAL_POSITION_X,
+        padding: hp("2%"),
+    },
+})
 
 //On intègre la méthode withNavigation pour permettre d'utiliser la navigation entre les différents écrans
 export default withNavigation(WeatherCard);
