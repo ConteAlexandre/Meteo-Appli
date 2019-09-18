@@ -46,3 +46,26 @@ qui va se faire, plus ou moins long.
 ````
 * Et voila l'application est lancée et fonctionnelle sur votre téléphone
 
+## Mise en place du système de notifications
+Vous avez l'application d'installée, mais les notifications ne fonctionnent pas encore car il
+vous manque un autre répertoire. Pour ce faire voici comment faire :
+* Pour trouver le répertoire correspondant, il vous faut suivre le lien suivant : [Notification](https://github.com/ConteAlexandre/notifications-expo)
+* Ensuite effectuer un git clone sur ce répertoire
+* Effectuer la commande
+````
+npm install
+````
+* Il faut déployer ce module en ligne pour que les notif fonctionnent, personnellement je l'ai fait 
+sur [Heroku](https://id.heroku.com/login) mais vous êtes libre d'en choisir un autre
+* une fois cela fait, vous devez allez dans le fichier 'notifications' sur votre application, il se trouve
+dans le dossier 'services', et le nom de l'app qui se situe dans l'url de 'axios.get' il vous faut le changer par
+le votre.
+* Voila votre système de notifications est opérationnel.
+
+## Conclusion
+Ceci est ma première application mobile et aussi la première fois que je fais du React-Native,
+donc si vous voyez des choses qui vous choquent ou à améliorer n'hésitez pas à me le dire. 
+
+
+
+
