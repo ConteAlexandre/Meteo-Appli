@@ -58,7 +58,8 @@ const mapToStateToProps = state => {
     return {};
 };
 
-//Ici quel action va intéragir avec nos états et propriétés de cet écran
+//Cette constante nous permet de communiquer les actions à la librairies et du coup de pouvoir les
+// utiliser comme on le souhaite
 const mapDispatchToProps = {
     facebookLogin,
     setToken
