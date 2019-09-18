@@ -23,6 +23,7 @@ class IndexScreen extends Component {
     //Nous commençons par définit les états à recevoir avec leurs mises a jour et le comportement
     componentDidMount() {
 
+        //Ajout de la fonction pour les notifications
         subscribeToPushNotification();
 
         //connexion fb,
