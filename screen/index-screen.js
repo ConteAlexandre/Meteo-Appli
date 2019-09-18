@@ -14,6 +14,7 @@ import { withNavigation } from "react-navigation";
 
 //Importation de notre composant facebooklogin
 import { facebookLogin, setToken } from "../actions";
+import {subscribeToPushNotification} from "../services/notifications";
 
 
 //Commençons notre composant
@@ -21,6 +22,9 @@ class IndexScreen extends Component {
 
     //Nous commençons par définit les états à recevoir avec leurs mises a jour et le comportement
     componentDidMount() {
+
+        subscribeToPushNotification();
+
         //connexion fb,
         AsyncStorage.getItem("fbtoken").then( token => {
             if (token) {
