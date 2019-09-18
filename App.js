@@ -1,19 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import SearchScreen from "./screen/search-screen";
+import AdvencedDetail from './screen/advenced-details.js';
+import store from "./store";
+import {Provider} from "react-redux";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack"
+import IndexScreen from "./screen/index-screen";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+class App extends Component {
+
+    render() {
+        return (
+            <Provider store={store} ><Route/></Provider>
+        );
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const StackNavigator = createStackNavigator(
+    {
+        Index : IndexScreen,
+        Search : SearchScreen,
+        Detail : AdvencedDetail
+    },
+    {
+        initialRouteName: "Index",
+        headerMode: "none"
+    }
+);
+
+const Route = createAppContainer(StackNavigator)
+
+export default App;
