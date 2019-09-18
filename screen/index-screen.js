@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 import { withNavigation } from "react-navigation";
 
 //Importation de notre composant facebooklogin
-import { facebookLogin } from "../actions";
+import { facebookLogin, setToken } from "../actions";
 
 
 //Commençons notre composant
@@ -24,9 +24,15 @@ class IndexScreen extends Component {
         //connexion fb,
         AsyncStorage.getItem("fbtoken").then( token => {
             if (token) {
+
+                //On stocke notre token dès que l'api est lancé même si éjà connecter
+                this.props.setToken(token)
+
                 //Si token deja existant vers Search
                 this.goToSearch()
+
             }else {
+
                 //Pas de token et Si reussi alors vers Search
                 this.props.facebookLogin(this.goToSearch)
             }
@@ -54,7 +60,8 @@ const mapToStateToProps = state => {
 
 //Ici quel action va intéragir avec nos états et propriétés de cet écran
 const mapDispatchToProps = {
-    facebookLogin
+    facebookLogin,
+    setToken
 };
 
 //On exporte le tout, avec withNavigation pour permettre le switch d'ecran et connect pour utilise la librairies redux

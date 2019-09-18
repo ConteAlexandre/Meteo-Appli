@@ -70,9 +70,8 @@ export const facebookLogin = (onSucces, onError) => dispatch => {
         //Si la réponse est ok, alors on suit le processus normal
         if (fbResponse.type === "success") {
 
-            //On dispatch l'action pour nous permettre d'enregistrer les données dans un payload que l'on puisse réutiliser après
-            //Dispatcher success fbResponse.token
-            dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload : fbResponse.token })
+            //On appel notre fonction de stockage token dans le store et on met en paramètre notre token si success
+            setToken(fbResponse.token)
 
             //Ici on utilise la donnée isolé juste au dessus pour sauvegarder le token dans le storage de l'api
             AsyncStorage.setItem("fbtoken", fbResponse.token)
@@ -98,4 +97,11 @@ export const facebookLogin = (onSucces, onError) => dispatch => {
         dispatch({ type: FACEBOOK_LOGIN_ERROR })
         onError && onError();
     })
+}
+
+//Petit fonction qui va nous permettre de stocker le token dans le store lorsque l'on arrive sur l'API
+export const setToken = (token) => dispatch => {
+    //On dispatch l'action pour nous permettre d'enregistrer les données dans un payload que l'on puisse réutiliser après
+    //Dispatcher success fbResponse.token
+    dispatch({ type: FACEBOOK_LOGIN_SUCCESS, payload : token })
 }
