@@ -154,8 +154,11 @@ const mapStateToProps = state => {
     };
 };
 
-//Ici nous établissons avec quel action utilise cette propriété
-const mapDispatchToProps = {getForecastWeatherByCity};
+//Cette constante nous permet de communiquer les actions à la librairies et du coup de pouvoir les
+// utiliser comme on le souhaite
+const mapDispatchToProps = {
+    getForecastWeatherByCity
+};
 
 
 //Exportons mainteant ce composant tout en disant que ça utilise la librairies redux et navigation pour permettre

@@ -102,7 +102,8 @@ const mapStateToProps = (store) => {
     }
 }
 
-//On fait appel à l'action qui sera demandé sur cet écran
+//Cette constante nous permet de communiquer les actions à la librairies et du coup de pouvoir les
+// utiliser comme on le souhaite
 const mapDispatchToProps = {
     getCurrentWeatherByCity
 }
